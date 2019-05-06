@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.zenglb.downloadinstaller.DownloadInstaller;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         findViewById(R.id.update).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showUpdate();
+                showUpdate(apkDownLoadUrl);
             }
         });
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
      * 显示升级，显示升级
      *
      */
-    private void showUpdate(){
+    private void showUpdate(final String downloadUrl){
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("Update App")
                 .setMessage("1.update aaaaa\n2.update bbbbb")
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog1, int which) {
-                                new DownloadInstaller(MainActivity.this).download(apkDownLoadUrl);
+                                new DownloadInstaller(MainActivity.this).download(downloadUrl);
+                                Toast.makeText(MainActivity.this,"开始下载，请稍后 !",Toast.LENGTH_LONG).show();
                             }
                         })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -61,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                     }
                 })
                 .show();
-
     }
 
 
