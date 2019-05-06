@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.bbssyyuui:ActivityLauncher:1.0.2@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1fe5c3d1aed378e8c92f811c8c4079af/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1fe5c3d1aed378e8c92f811c8c4079af/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bbssyyuui/ActivityLauncher/1.0.2/29eccd79b3b81c1e44a3f559cde04ee9b184f804/ActivityLauncher-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

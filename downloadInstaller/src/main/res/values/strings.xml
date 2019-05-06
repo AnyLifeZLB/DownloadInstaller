@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- APK 升级 -->
+    <string name="apk_update_tips_title">发现新版本</string>
+    <string name="apk_update_yes">立即更新</string>
+    <string name="apk_update_no">以后再说</string>
+    <string name="apk_update_downloading_title">正在下载，请稍候</string>
+    <string name="apk_update_download_failed">下载失败，请稍后再重试</string>
+    <string name="apk_update_tips_title_2">Loading</string>
+
+    <!-- 升级更新 -->
+    <string name="download_tart">下载提示</string>
+    <string name="download_cancel">取消下载</string>
+    <string name="download_success">下载完成</string>
+
+    <string name="download_failure_storage_permission_deny">下载更新App失败，无储存权限</string>
+
+
+</resources>
