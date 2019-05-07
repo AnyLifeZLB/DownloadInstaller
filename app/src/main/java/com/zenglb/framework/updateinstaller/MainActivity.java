@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     String apkDownLoadUrl = "http://img.4009515151.com//2019/04/02/14/653371b458-comvankewyguide_3.8.4.1_412b07a6-44cc-5953-a8a6-0a1a5dd535e1.apk";
 
+
+//    String apkDownLoadUrl = "https://ali-fir-pro-binary.fir.im/a129a8163c341efa174432c0f9dcb9e81423a0d3.apk?auth_key=1557197755-0-0-474c6eccf0e8191d730880389b79d4c5";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
