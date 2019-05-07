@@ -28,6 +28,9 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
+
+        //还没通过Jcenter 的审核，暂时要
+        maven { url 'https://dl.bintray.com/anylifezlb/DownloadInstaller' }
     }
 }
 

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
 
     /**
-     * 显示升级，显示升级
+     * 弹出升级对话框
      *
      */
     private void showUpdate(final String downloadUrl){
