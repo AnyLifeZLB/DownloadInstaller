@@ -19,30 +19,28 @@
   -  显示对话框提示升级 new DownloadInstaller(MainActivity.this).download(apkDownLoadUrl)
   ```
     //一般的弹出对话框提示升级，需要强制升级的大家一起提issues 来完善啊
-    private void showUpdate(String apkDownLoadUrl){
-        new AlertDialog.Builder(MainActivity.this)
-                .setTitle("Update App")
-                .setMessage("1.update aaaaa\n2.update bbbbb")
-                .setPositiveButton("update",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog1, int which) {
-                                
-                                new DownloadInstaller(MainActivity.this).download(apkDownLoadUrl);
-                                
-                            }
-                        })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
-    }
+            new DownloadInstaller(MainActivity.this, downloadUrl, new DownloadProgressCallBack() {
+                @Override
+                public void downloadProgress(int progress) {
+                    Log.e("PROGRESS","Progress"+progress);
+                }
+    
+                @Override
+                public void downloadException(Exception e) {
+                    e.printStackTrace();
+                }
+    
+                /**
+                 * 开始安装
+                 */
+                @Override
+                public void installOnStart() {
+    
+                }
+    
+            }).start();
   ```
 
 # More
-项目中有反馈安装未知来源问题因为没有处理好被投诉后抽时间完善并开源，不提供静默安装是感觉违反用户感知升级和兼容问题
 
 希望喜欢的朋友多提意见，给个star
