@@ -21,7 +21,7 @@
             tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/download_installprovider_paths"
+                android:resource="@xml/download_install_provider_paths"
                 tools:replace="android:resource" />
         </provider>
 

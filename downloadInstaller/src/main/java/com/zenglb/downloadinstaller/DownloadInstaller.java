@@ -17,21 +17,26 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.net.UnknownHostException;
+import java.net.UnknownServiceException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import com.zdf.activitylauncher.ActivityLauncher;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
- * App 下载升级管理器
+ * App 下载升级管理器.单线程稳定，多线程异常多！！！
  * <p>
  * 1.wifi 环境下静默下载，否则询问用户是否下载
  * 2.强制更新的话就告知用户要强制下载，不同意就退出App
@@ -39,19 +44,18 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * 4.Android 7以上的FileProvider 问题
  * 5.新的进程处理？app 杀了也没有关系
  * 6.异常处理完善
+ * 7.安装时候APK MD5 检查，断点续传，多线程下载
+ *
+ * https://github.com/miomin/Multiple-ChannelResumeDownloader
+ * https://github.com/yaowen369/DownloadHelper
  */
 public class DownloadInstaller {
-    private static final String id = "update_chanel_id_1";
     private static final String authority = "com.zenglb.downloadinstaller.fileprovider";
     private static final String intentType = "application/vnd.android.package-archive";
 
     private NotificationManager notificationManager;
     private Notification notification;
     private NotificationCompat.Builder builder;
-    private static boolean isUpdate = false;
-    // TODO: 2019-05-07 need  
-    //是否有已经下载好的App，目前并不能知道是否用户真的安装好了新版本的App
-    private static boolean haveUninstallApp = false;
 
     private Context mContext;
     private int progress;
@@ -59,31 +63,88 @@ public class DownloadInstaller {
 
     //新包的下载地址
     private String downloadApkUrl;
+    private String downloadApkUrlMd5;
+    private int downloadApkNotifyId;
 
     //local saveFilePath
     private String storageApkPath;
 
+    //事件监听器
+    private DownloadProgressCallBack downloadProgressCallBack;
+
+    //保存下载状态信息，临时过度的方案。后期多线程断点续方案就要使用数据库了
+    private static HashMap<String, Integer> hashMap = new HashMap();
+
     /**
-     * 构造方法
+     * 不需要下载进度回调的
      *
-     * @param context context
+     * @param context        上下文
+     * @param downloadApkUrl apk 下载地址
      */
-    public DownloadInstaller(Context context) {
-        this.mContext = context;
-        storageApkPath = Environment.getExternalStorageDirectory().getPath() + "/" + AppUtils.getAppName(mContext) + ".apk";
+    public DownloadInstaller(Context context, String downloadApkUrl) {
+        this(context, downloadApkUrl, null);
     }
 
 
     /**
-     * app下载升级管理,builder
+     * 需要下载进度回调的
      *
-     * @param apkUrl apk 下载地址
+     * @param context                  上下文
+     * @param downloadApkUrl           apk下载地址
+     * @param downloadProgressCallBack 进度状态回调
      */
-    public void download(String apkUrl) {
-        downloadApkUrl = apkUrl;
-        if(!haveUninstallApp&&!isUpdate){
-            initNotification();
+    public DownloadInstaller(Context context, String downloadApkUrl, DownloadProgressCallBack downloadProgressCallBack) {
+        this.mContext = context;
+        this.downloadApkUrl = downloadApkUrl;
+        this.downloadProgressCallBack = downloadProgressCallBack;
+    }
 
+
+    /**
+     * 获取16位的MD5 值，大写
+     *
+     * @param str
+     * @return
+     */
+    private String getUpperMD5Str16(String str) {
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(str.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("NoSuchAlgorithmException caught!");
+            System.exit(-1);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] byteArray = messageDigest.digest();
+        StringBuffer md5StrBuff = new StringBuffer();
+        for (int i = 0; i < byteArray.length; i++) {
+            if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
+                md5StrBuff.append("0").append(
+                        Integer.toHexString(0xFF & byteArray[i]));
+            else
+                md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+        }
+        return md5StrBuff.toString().toUpperCase().substring(8, 24);
+    }
+
+
+    /**
+     * app下载升级管理
+     *
+     */
+    public void start() {
+        downloadApkUrlMd5 = getUpperMD5Str16(downloadApkUrl);
+        downloadApkNotifyId = downloadApkUrlMd5.hashCode();
+
+        storageApkPath = Environment.getExternalStorageDirectory().getPath() + "/" + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
+
+        Integer downloadStatus = hashMap.get(downloadApkUrlMd5);
+        //若果发现有已经下载好的文件，MD5 也是一样的话。 进度直接变成 100%
+        if (downloadStatus==null||downloadStatus == DownloadInstallStatus.UN_DOWNLOAD || downloadStatus ==DownloadInstallStatus.DOWNLOAD_ERROR) {
+            initNotification();
             //如果没有正在下载&&没有下载好了还没有升级的
             new Thread(mDownApkRunnable).start();
         }
@@ -92,12 +153,13 @@ public class DownloadInstaller {
 
     /**
      * 下载线程,使用最原始的HttpURLConnection，减少依赖
+     * 大的APK下载还是比较慢的，后面改为多线程下载
+     *
      */
     private Runnable mDownApkRunnable = new Runnable() {
         @Override
         public void run() {
-            isUpdate = true;
-
+            hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOADING);
             try {
                 URL url = new URL(downloadApkUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -121,6 +183,9 @@ public class DownloadInstaller {
                     progress = (int) (((float) count / length) * 100);
                     if (progress > oldProgress) {
                         updateNotify(progress);
+                        if (downloadProgressCallBack != null) {
+                            downloadProgressCallBack.downloadProgress(progress);
+                        }
                         oldProgress = progress;
                     }
                     fos.write(buf, 0, byteCount);
@@ -129,7 +194,7 @@ public class DownloadInstaller {
                 ((Activity) mContext).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        haveUninstallApp = true;
+                        hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.UNINSTALL);
                         installProcess();
                     }
                 });
@@ -139,18 +204,35 @@ public class DownloadInstaller {
                 is.close();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOAD_ERROR);
+
+                if (downloadProgressCallBack != null) {
+                    downloadProgressCallBack.downloadException(e);
+                }
+
                 //后面有时间再完善异常的处理
-                if (e.toString().contains("Permission denied")) {
+                if (e instanceof FileNotFoundException) {
+                    notifyError(getStringFrom(R.string.download_failure_file_not_found));
+                    toastError(R.string.download_failure_file_not_found);
+                } else if (e instanceof ConnectException) {
+                    notifyError(getStringFrom(R.string.download_failure_net_deny));
+                    toastError(R.string.download_failure_net_deny);
+                } else if (e instanceof UnknownHostException) {
+                    notifyError(getStringFrom(R.string.download_failure_net_deny));
+                    toastError(R.string.download_failure_net_deny);
+                } else if (e instanceof UnknownServiceException) {
+                    notifyError(getStringFrom(R.string.download_failure_net_deny));
+                    toastError(R.string.download_failure_net_deny);
+                } else if (e.toString().contains("Permission denied")) {
                     notifyError(getStringFrom(R.string.download_failure_storage_permission_deny));
                     toastError(R.string.download_failure_storage_permission_deny);
                 } else {
                     notifyError(getStringFrom(R.string.apk_update_download_failed));
                     toastError(R.string.apk_update_download_failed);
                 }
+
             } finally {
                 //finally do something
-                isUpdate = false;
             }
         }
     };
@@ -161,7 +243,6 @@ public class DownloadInstaller {
      *
      * @param id res id
      * @return string
-     * @throws Resources.NotFoundException
      */
     @NonNull
     public String getStringFrom(@StringRes int id) {
@@ -173,7 +254,7 @@ public class DownloadInstaller {
      *
      * @param id res id
      */
-    private void toastError(@StringRes int id)  {
+    private void toastError(@StringRes int id) {
         Looper.prepare();
         Toast.makeText(mContext, getStringFrom(id), Toast.LENGTH_LONG).show();
         Looper.loop();
@@ -182,8 +263,6 @@ public class DownloadInstaller {
 
     /**
      * 安装过程处理
-     *
-     *
      */
     public void installProcess() {
         if (progress < 100) {
@@ -192,28 +271,32 @@ public class DownloadInstaller {
 
         if (Build.VERSION.SDK_INT >= 26) {
             boolean canInstallPackage = mContext.getPackageManager().canRequestPackageInstalls();
+            final Integer downloadStatus = hashMap.get(downloadApkUrlMd5);
+
             if (canInstallPackage) {
-                if (haveUninstallApp) {
+                if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
                     installApk();
-                    haveUninstallApp = false;
+                    hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
                 }
             } else {
                 Uri packageURI = Uri.parse("package:" + AppUtils.getPackageName(mContext));
                 Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
+
                 //检查是否可以安装未知来源的应用，没有权限就一直去尝试，我感觉这样子是很流氓的...
                 //在这里拦截OnActivityResult,不要代码割裂
                 ActivityLauncher.init((Activity) mContext).startActivityForResult(intent, new ActivityLauncher.Callback() {
                     @Override
                     public void onActivityResult(int resultCode, Intent data) {
-                        if (haveUninstallApp) {
+                        if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
                             installProcess();
                         }
                     }
                 });
+
             }
         } else {
             installApk();
-            haveUninstallApp = false;
+            hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
         }
     }
 
@@ -238,6 +321,13 @@ public class DownloadInstaller {
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
+
+        /**
+         * 开始安装了
+         */
+        if (downloadProgressCallBack != null) {
+            downloadProgressCallBack.installOnStart();
+        }
     }
 
 
@@ -246,25 +336,25 @@ public class DownloadInstaller {
      */
     private void initNotification() {
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-//        NotificationChannel mChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_LOW);
-//        notificationManager.createNotificationChannel(mChannel);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel mChannel = new NotificationChannel(id, AppUtils.getAppName(mContext), NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel mChannel = new NotificationChannel(downloadApkUrlMd5, downloadApkUrlMd5, NotificationManager.IMPORTANCE_LOW);
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        builder = new NotificationCompat.Builder(mContext, id);
+        builder = new NotificationCompat.Builder(mContext, downloadApkUrl);
         builder.setContentTitle(mContext.getResources().getString(R.string.apk_update_tips_title) + AppUtils.getAppName(mContext)) //设置通知标题
                 .setSmallIcon(R.drawable.download)
                 .setDefaults(Notification.DEFAULT_LIGHTS) //设置通知的提醒方式： 呼吸灯
                 .setPriority(NotificationCompat.PRIORITY_MAX) //设置通知的优先级：最大
-                .setAutoCancel(false)
+                .setAutoCancel(true)  //
+                .setOngoing(true)     // 不可以删除
                 .setContentText(mContext.getResources().getString(R.string.apk_update_downloading_progress))
-                .setChannelId(id)
+                .setChannelId(downloadApkUrlMd5)
                 .setProgress(100, 0, false);
         notification = builder.build();//构建通知对象
     }
+
 
     /**
      * 通知下载更新过程中的错误信息
@@ -273,10 +363,10 @@ public class DownloadInstaller {
      */
     private void notifyError(String errorMsg) {
         builder.setContentTitle(mContext.getResources().getString(R.string.apk_update_tips_error_title));
-        builder.setProgress(100, 0, false);
+//        builder.setProgress(100, 0, false);
         builder.setContentText(errorMsg);
         notification = builder.build();
-        notificationManager.notify(10086, notification);
+        notificationManager.notify(downloadApkNotifyId, notification);
     }
 
 
@@ -304,8 +394,7 @@ public class DownloadInstaller {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             notification.contentIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
         }
-
-        notificationManager.notify(10086, notification);
+        notificationManager.notify(downloadApkNotifyId, notification);
     }
 
 

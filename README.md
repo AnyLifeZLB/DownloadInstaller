@@ -1,4 +1,5 @@
 # DownloadInstaller
+
 ## Android 应用内下载，储存，安装 ，未知来源等问题处理
 处理好了FileProvider,未知来源确认，通知栏等问题处理。
 特别是Android 8 首次安装时候的未知来源问题处理，这里的处理方式很强硬，不授权安装未知来源就会一直跳转到授权页面
@@ -26,7 +27,9 @@
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog1, int which) {
+                                
                                 new DownloadInstaller(MainActivity.this).download(apkDownLoadUrl);
+                                
                             }
                         })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -39,4 +42,7 @@
     }
   ```
 
+# More
+项目中有反馈安装未知来源问题因为没有处理好被投诉后抽时间完善并开源，不提供静默安装是感觉违反用户感知升级和兼容问题
 
+希望喜欢的朋友多提意见，给个star

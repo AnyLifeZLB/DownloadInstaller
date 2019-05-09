@@ -31,8 +31,7 @@ dependencies {
 
     implementation project(':downloadInstaller')
 
-//    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.0'
-
+//    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.2'
 
 
 }
