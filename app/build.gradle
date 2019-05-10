@@ -28,10 +28,9 @@ dependencies {
 
     implementation 'pub.devrel:easypermissions:2.0.1'
 
-
     implementation project(':downloadInstaller')
 
-//    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.2'
+//    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.4'
 
 
 }

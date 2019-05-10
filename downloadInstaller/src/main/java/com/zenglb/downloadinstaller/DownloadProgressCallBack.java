@@ -9,6 +9,6 @@ public interface DownloadProgressCallBack {
 
      void downloadProgress(int progress);
      void downloadException(Exception e);
-     void installOnStart();
+     void onInstallStart();
 
 }

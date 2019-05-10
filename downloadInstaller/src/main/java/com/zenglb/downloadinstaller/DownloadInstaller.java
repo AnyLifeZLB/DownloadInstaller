@@ -7,7 +7,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -32,20 +31,19 @@ import java.net.UnknownServiceException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+
 import com.zdf.activitylauncher.ActivityLauncher;
 
 
 /**
- * App 下载升级管理器.单线程稳定，多线程异常多！！！
+ * App 下载升级管理器.单线程稳定，多线程下载异常多！！！
  * <p>
- * 1.wifi 环境下静默下载，否则询问用户是否下载
- * 2.强制更新的话就告知用户要强制下载，不同意就退出App
- * 3.首次安装妥善处理Android 8的未知来源安装问题（处理OnActivityResult 问题）
- * 4.Android 7以上的FileProvider 问题
+ * https://bintray.com/anylifezlb
+ * <p>
  * 5.新的进程处理？app 杀了也没有关系
- * 6.异常处理完善
+ * <p>
  * 7.安装时候APK MD5 检查，断点续传，多线程下载
- *
+ * <p>
  * https://github.com/miomin/Multiple-ChannelResumeDownloader
  * https://github.com/yaowen369/DownloadHelper
  */
@@ -91,12 +89,12 @@ public class DownloadInstaller {
      *
      * @param context                  上下文
      * @param downloadApkUrl           apk下载地址
-     * @param downloadProgressCallBack 进度状态回调
+     * @param callBack 进度状态回调
      */
-    public DownloadInstaller(Context context, String downloadApkUrl, DownloadProgressCallBack downloadProgressCallBack) {
+    public DownloadInstaller(Context context, String downloadApkUrl, DownloadProgressCallBack callBack) {
         this.mContext = context;
         this.downloadApkUrl = downloadApkUrl;
-        this.downloadProgressCallBack = downloadProgressCallBack;
+        this.downloadProgressCallBack = callBack;
     }
 
 
@@ -133,7 +131,6 @@ public class DownloadInstaller {
 
     /**
      * app下载升级管理
-     *
      */
     public void start() {
         downloadApkUrlMd5 = getUpperMD5Str16(downloadApkUrl);
@@ -143,7 +140,7 @@ public class DownloadInstaller {
 
         Integer downloadStatus = hashMap.get(downloadApkUrlMd5);
         //若果发现有已经下载好的文件，MD5 也是一样的话。 进度直接变成 100%
-        if (downloadStatus==null||downloadStatus == DownloadInstallStatus.UN_DOWNLOAD || downloadStatus ==DownloadInstallStatus.DOWNLOAD_ERROR) {
+        if (downloadStatus == null || downloadStatus == DownloadInstallStatus.UN_DOWNLOAD || downloadStatus == DownloadInstallStatus.DOWNLOAD_ERROR) {
             initNotification();
             //如果没有正在下载&&没有下载好了还没有升级的
             new Thread(mDownApkRunnable).start();
@@ -263,6 +260,7 @@ public class DownloadInstaller {
 
     /**
      * 安装过程处理
+     *
      */
     public void installProcess() {
         if (progress < 100) {
@@ -271,7 +269,7 @@ public class DownloadInstaller {
 
         if (Build.VERSION.SDK_INT >= 26) {
             boolean canInstallPackage = mContext.getPackageManager().canRequestPackageInstalls();
-            final Integer downloadStatus = hashMap.get(downloadApkUrlMd5);
+            final Integer downloadStatus = hashMap.get(downloadApkUrlMd5); //unboxing
 
             if (canInstallPackage) {
                 if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
@@ -326,7 +324,7 @@ public class DownloadInstaller {
          * 开始安装了
          */
         if (downloadProgressCallBack != null) {
-            downloadProgressCallBack.installOnStart();
+            downloadProgressCallBack.onInstallStart();
         }
     }
 
@@ -363,12 +361,10 @@ public class DownloadInstaller {
      */
     private void notifyError(String errorMsg) {
         builder.setContentTitle(mContext.getResources().getString(R.string.apk_update_tips_error_title));
-//        builder.setProgress(100, 0, false);
         builder.setContentText(errorMsg);
         notification = builder.build();
         notificationManager.notify(downloadApkNotifyId, notification);
     }
-
 
 
     /**

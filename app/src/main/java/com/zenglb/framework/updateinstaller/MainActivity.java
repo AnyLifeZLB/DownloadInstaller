@@ -7,14 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
 import com.zenglb.downloadinstaller.DownloadInstaller;
 import com.zenglb.downloadinstaller.DownloadProgressCallBack;
-
 import java.util.List;
-
-import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -24,8 +19,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     String apkDownLoadUrl = "http://img.4009515151.com//2019/04/02/14/653371b458-comvankewyguide_3.8.4.1_412b07a6-44cc-5953-a8a6-0a1a5dd535e1.apk";
-
-    String apkDownLoadUrl2 = "https://ali-fir-pro-binary.fir.im/a129a8163c341efa174432c0f9dcb9e81423a0d3.apk?auth_key=1557306071-0-0-a4835a4fd33e58fb8f6e303a91ad9d1b";
+    String apkDownLoadUrl2 = "https://ali-fir-pro-binary.fir.im/ea7df71390403635b5f744d82d28c13fc865c325.apk?auth_key=1557455233-0-0-2b4c71ac353961eab7fa2a65ec641bb4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         });
 
         methodRequiresPermission();
-
     }
 
 
@@ -87,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
      *
      */
     private void goDownloadInstall(final String downloadUrl){
+
 //        new DownloadInstaller(MainActivity.this,downloadUrl).start();
+
         new DownloadInstaller(MainActivity.this, downloadUrl, new DownloadProgressCallBack() {
             @Override
             public void downloadProgress(int progress) {
@@ -103,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
              * 开始安装
              */
             @Override
-            public void installOnStart() {
+            public void onInstallStart() {
 
             }
 
