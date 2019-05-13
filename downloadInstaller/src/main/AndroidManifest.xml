@@ -15,7 +15,7 @@
 
         <provider
             android:name=".DownloadInstallerProvider"
-            android:authorities="com.zenglb.downloadinstaller.fileprovider"
+            android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">

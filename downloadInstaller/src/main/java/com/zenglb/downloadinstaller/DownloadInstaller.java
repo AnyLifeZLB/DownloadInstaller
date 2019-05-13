@@ -48,7 +48,9 @@ import com.zdf.activitylauncher.ActivityLauncher;
  * https://github.com/yaowen369/DownloadHelper
  */
 public class DownloadInstaller {
-    private static final String authority = "com.zenglb.downloadinstaller.fileprovider";
+    private String applicationID ;
+
+    private String authority ;
     private static final String intentType = "application/vnd.android.package-archive";
 
     private NotificationManager notificationManager;
@@ -133,18 +135,25 @@ public class DownloadInstaller {
      * app下载升级管理
      */
     public void start() {
-        downloadApkUrlMd5 = getUpperMD5Str16(downloadApkUrl);
+        applicationID=mContext.getPackageName();
+
+        //防止不同的app 下载同一个链接的App 失败
+        downloadApkUrlMd5 = getUpperMD5Str16(downloadApkUrl+applicationID);
         downloadApkNotifyId = downloadApkUrlMd5.hashCode();
 
+        //https://developer.android.com/studio/build/application-id?hl=zh-cn
+        authority=applicationID+".fileProvider";
         storageApkPath = Environment.getExternalStorageDirectory().getPath() + "/" + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
 
         Integer downloadStatus = hashMap.get(downloadApkUrlMd5);
+
         //若果发现有已经下载好的文件，MD5 也是一样的话。 进度直接变成 100%
         if (downloadStatus == null || downloadStatus == DownloadInstallStatus.UN_DOWNLOAD || downloadStatus == DownloadInstallStatus.DOWNLOAD_ERROR) {
             initNotification();
-            //如果没有正在下载&&没有下载好了还没有升级的
+            //如果没有正在下载&&没有下载好了还没有升级
             new Thread(mDownApkRunnable).start();
         }
+
     }
 
 

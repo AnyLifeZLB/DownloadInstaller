@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
      *
      */
     private void goDownloadInstall(final String downloadUrl){
+//        String apkDownLoadUrl = "http://img.4009515151.com//2019/04/02/14/653371b458-comvankewyguide_3.8.4.1_412b07a6-44cc-5953-a8a6-0a1a5dd535e1.apk";
 
 //        new DownloadInstaller(MainActivity.this,downloadUrl).start();
 

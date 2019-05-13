@@ -38,9 +38,7 @@ dependencies {
 }
 
 
-
-
-version = "1.0.4"  //版本号，每次提交到Jcenter都要修改
+version = "1.0.6"  //版本号，每次提交到Jcenter都要修改
 def siteUrl = "https://github.com/AnyLifeZLB/DownloadInstaller"        // project homepage
 def gitUrl  = "https://github.com/AnyLifeZLB/DownloadInstaller.git"    // project git
 group = "anylife.downloadinstaller"
