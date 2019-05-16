@@ -11,7 +11,7 @@ import android.content.pm.PackageManager;
 public class AppUtils {
 
     /**
-     * 获取应用程序名称
+     * 获取应用程序名称  ${APP_NAME} 会死悄悄啊
      * @param context Context
      * @return 当前应用的名称
      */

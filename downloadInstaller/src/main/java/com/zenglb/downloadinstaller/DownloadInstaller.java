@@ -153,7 +153,6 @@ public class DownloadInstaller {
             //如果没有正在下载&&没有下载好了还没有升级
             new Thread(mDownApkRunnable).start();
         }
-
     }
 
 
@@ -350,7 +349,7 @@ public class DownloadInstaller {
         }
 
         builder = new NotificationCompat.Builder(mContext, downloadApkUrl);
-        builder.setContentTitle(mContext.getResources().getString(R.string.apk_update_tips_title) + AppUtils.getAppName(mContext)) //设置通知标题
+        builder.setContentTitle(mContext.getResources().getString(R.string.apk_update_tips_title)) //设置通知标题
                 .setSmallIcon(R.drawable.download)
                 .setDefaults(Notification.DEFAULT_LIGHTS) //设置通知的提醒方式： 呼吸灯
                 .setPriority(NotificationCompat.PRIORITY_MAX) //设置通知的优先级：最大
