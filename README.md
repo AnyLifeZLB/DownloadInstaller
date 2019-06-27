@@ -4,20 +4,23 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
 
 
 ## Android 应用内下载，储存，安装 ，未知来源等问题处理
-处理好了FileProvider,未知来源确认，通知栏等问题处理。
-特别是Android 8 首次安装时候的未知来源问题处理，这里的处理方式很强硬，不授权安装未知来源就会一直跳转到授权页面。比较流氓，但很实用!
+- 处理好了全局FileProvider,未知来源授权确认，通知栏等问题处理。
+- 已经下载的文件不会重复下载
+- 特别是Android 8 首次安装时候的未知来源问题处理，这里的处理方式很强硬，不授权安装未知来源就会一直跳转到授权页面。比较流氓，但很实用!
+- 当然这是可以配置是否需要强制授权安装未知来源 参考：new DownloadInstaller(mContext, downloadUrl, isForceGrantUnKnowSource
 
 
 # 使用 
   
   首先 Gradle 引入
-  implementation 'anylife.downloadinstaller:downloadInstaller:1.0.4'
+  implementation 'anylife.downloadinstaller:downloadInstaller:1.0.9'
   
   然后
   
   ```
-    //一般的弹出对话框提示升级，需要强制升级的大家一起提issues 来完善啊
-     new DownloadInstaller(mContext, downloadUrl, new DownloadProgressCallBack() {
+    //一般的弹出对话框提示升级
+    //如果是企业内部应用升级，肯定是要这个权限; 其他情况不要太流氓，TOAST 提示
+     new DownloadInstaller(mContext, downloadUrl, isForceGrantUnKnowSource,new DownloadProgressCallBack() {
          @Override
          public void downloadProgress(int progress) {
                Log.e("PROGRESS","Progress"+progress);

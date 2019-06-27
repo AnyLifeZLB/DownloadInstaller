@@ -32,13 +32,16 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+
+    //下载进度
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'pub.devrel:easypermissions:2.0.1'
 
-    implementation project(':downloadInstaller')
+//    implementation project(':downloadInstaller')
 
-//    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.4'
+    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.9'
 
-    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+
 
 }
 

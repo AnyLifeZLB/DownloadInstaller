@@ -10,8 +10,8 @@
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:supportsRtl="true" >
+
 
         <provider
             android:name=".DownloadInstallerProvider"
@@ -24,6 +24,7 @@
                 android:resource="@xml/download_install_provider_paths"
                 tools:replace="android:resource" />
         </provider>
+
 
     </application>
 </manifest>

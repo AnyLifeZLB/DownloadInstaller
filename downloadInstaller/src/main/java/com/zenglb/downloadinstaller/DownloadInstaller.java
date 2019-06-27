@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.util.ArrayMap;
 import android.widget.Toast;
 
 import java.io.File;
@@ -30,13 +31,12 @@ import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
 import com.zdf.activitylauncher.ActivityLauncher;
 
 
 /**
- * App 下载升级管理器.单线程稳定，多线程下载异常多！！！
+ * App 下载升级管理器.单线程稳定，多线程下载异常多！！！  30M 以内还是没有问题
  * <p>
  * https://bintray.com/anylifezlb
  * <p>
@@ -48,9 +48,7 @@ import com.zdf.activitylauncher.ActivityLauncher;
  * https://github.com/yaowen369/DownloadHelper
  */
 public class DownloadInstaller {
-    private String applicationID ;
-
-    private String authority ;
+    private String authority;
     private static final String intentType = "application/vnd.android.package-archive";
 
     private NotificationManager notificationManager;
@@ -60,6 +58,8 @@ public class DownloadInstaller {
     private Context mContext;
     private int progress;
     private int oldProgress;
+
+    private boolean isForceGrantUnKnowSource;
 
     //新包的下载地址
     private String downloadApkUrl;
@@ -72,8 +72,12 @@ public class DownloadInstaller {
     //事件监听器
     private DownloadProgressCallBack downloadProgressCallBack;
 
-    //保存下载状态信息，临时过度的方案。后期多线程断点续方案就要使用数据库了
-    private static HashMap<String, Integer> hashMap = new HashMap();
+    //保存下载状态信息，临时过度的方案。先只是记录下载状态，后期再断点续方案就要使用数据库了
+    public static ArrayMap<String, Integer> downLoadStatusMap = new ArrayMap<>();
+
+
+    private String storagePrefix;
+
 
     /**
      * 不需要下载进度回调的
@@ -82,20 +86,34 @@ public class DownloadInstaller {
      * @param downloadApkUrl apk 下载地址
      */
     public DownloadInstaller(Context context, String downloadApkUrl) {
-        this(context, downloadApkUrl, null);
+        this(context, downloadApkUrl, false, null);
     }
 
 
     /**
      * 需要下载进度回调的
      *
-     * @param context                  上下文
-     * @param downloadApkUrl           apk下载地址
-     * @param callBack 进度状态回调
+     * @param context        上下文
+     * @param downloadApkUrl apk下载地址
+     * @param callBack       进度状态回调
      */
     public DownloadInstaller(Context context, String downloadApkUrl, DownloadProgressCallBack callBack) {
+        this(context, downloadApkUrl, false, callBack);
+    }
+
+
+    /**
+     * 下载安装App
+     *
+     * @param context                  上下文
+     * @param downloadApkUrl           下载URL
+     * @param isForceGrantUnKnowSource 是否是强制的要授权未知来源
+     * @param callBack                 回调
+     */
+    public DownloadInstaller(Context context, String downloadApkUrl, boolean isForceGrantUnKnowSource, DownloadProgressCallBack callBack) {
         this.mContext = context;
         this.downloadApkUrl = downloadApkUrl;
+        this.isForceGrantUnKnowSource = isForceGrantUnKnowSource;
         this.downloadProgressCallBack = callBack;
     }
 
@@ -135,53 +153,73 @@ public class DownloadInstaller {
      * app下载升级管理
      */
     public void start() {
-        applicationID=mContext.getPackageName();
-
+        String applicationID = mContext.getPackageName();
         //防止不同的app 下载同一个链接的App 失败
-        downloadApkUrlMd5 = getUpperMD5Str16(downloadApkUrl+applicationID);
+        downloadApkUrlMd5 = getUpperMD5Str16(downloadApkUrl + applicationID);
         downloadApkNotifyId = downloadApkUrlMd5.hashCode();
 
         //https://developer.android.com/studio/build/application-id?hl=zh-cn
-        authority=applicationID+".fileProvider";
-        storageApkPath = Environment.getExternalStorageDirectory().getPath() + "/" + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
+        authority = applicationID + ".fileProvider";
 
-        Integer downloadStatus = hashMap.get(downloadApkUrlMd5);
+        //前缀要统一 一下 + AppUtils.getAppName(mContext)+"/Download/"
+        storagePrefix = Environment.getExternalStorageDirectory().getPath() + "/";
+        storageApkPath = storagePrefix + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
 
-        //若果发现有已经下载好的文件，MD5 也是一样的话。 进度直接变成 100%
+        Integer downloadStatus = downLoadStatusMap.get(downloadApkUrlMd5);
+
+        //若发现URL 对应的文件已经下载好了。 进度直接变成 100%
         if (downloadStatus == null || downloadStatus == DownloadInstallStatus.UN_DOWNLOAD || downloadStatus == DownloadInstallStatus.DOWNLOAD_ERROR) {
             initNotification();
             //如果没有正在下载&&没有下载好了还没有升级
             new Thread(mDownApkRunnable).start();
+        } else if (downloadStatus == DownloadInstallStatus.DOWNLOADING) {
+            Toast.makeText(mContext, "正在下载App", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 
     /**
      * 下载线程,使用最原始的HttpURLConnection，减少依赖
      * 大的APK下载还是比较慢的，后面改为多线程下载
-     *
      */
     private Runnable mDownApkRunnable = new Runnable() {
         @Override
         public void run() {
-            hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOADING);
+            downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOADING);
             try {
                 URL url = new URL(downloadApkUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.connect();
                 int length = conn.getContentLength();
-                InputStream is = conn.getInputStream();
 
-                File file = new File(Environment.getExternalStorageDirectory().getPath());
+                File file = new File(storagePrefix);
                 if (!file.exists()) {
                     file.mkdir();
                 }
 
-                File ApkFile = new File(storageApkPath);
-                FileOutputStream fos = new FileOutputStream(ApkFile);
+                File apkFile = new File(storageApkPath);
+
+                if (apkFile.exists() && apkFile.length() == length) {
+                    //已经下载过了，直接的progress ==100,然后去安装
+                    progress=100;
+
+                    updateNotify(progress);
+                    if (downloadProgressCallBack != null) {
+                        downloadProgressCallBack.downloadProgress(progress);
+                    }
+                    downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UNINSTALL);
+                    installProcess();
+                    return;
+                }
+
+
+                FileOutputStream fos = new FileOutputStream(apkFile);
                 int count = 0;
                 byte buf[] = new byte[2048];
                 int byteCount;
+
+                InputStream is = conn.getInputStream();
 
                 while ((byteCount = is.read(buf)) > 0) {
                     count += byteCount;
@@ -199,7 +237,7 @@ public class DownloadInstaller {
                 ((Activity) mContext).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.UNINSTALL);
+                        downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UNINSTALL);
                         installProcess();
                     }
                 });
@@ -209,7 +247,7 @@ public class DownloadInstaller {
                 is.close();
 
             } catch (Exception e) {
-                hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOAD_ERROR);
+                downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOAD_ERROR);
 
                 if (downloadProgressCallBack != null) {
                     downloadProgressCallBack.downloadException(e);
@@ -268,21 +306,20 @@ public class DownloadInstaller {
 
     /**
      * 安装过程处理
-     *
      */
     public void installProcess() {
         if (progress < 100) {
             return;
         }
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             boolean canInstallPackage = mContext.getPackageManager().canRequestPackageInstalls();
-            final Integer downloadStatus = hashMap.get(downloadApkUrlMd5); //unboxing
+            final Integer downloadStatus = downLoadStatusMap.get(downloadApkUrlMd5); //unboxing
 
             if (canInstallPackage) {
                 if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
                     installApk();
-                    hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
+                    downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
                 }
             } else {
                 Uri packageURI = Uri.parse("package:" + AppUtils.getPackageName(mContext));
@@ -293,16 +330,47 @@ public class DownloadInstaller {
                 ActivityLauncher.init((Activity) mContext).startActivityForResult(intent, new ActivityLauncher.Callback() {
                     @Override
                     public void onActivityResult(int resultCode, Intent data) {
-                        if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
-                            installProcess();
+                        //授权了就去安装
+                        if (resultCode == Activity.RESULT_OK) {
+                            if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
+                                installProcess();
+                            }
+                        } else {
+                            //如果是企业内部应用升级，肯定是要这个权限，其他情况不要太流氓，TOAST 提示
+                            if (isForceGrantUnKnowSource) {
+                                installProcess();
+                            } else {
+                                Toast.makeText(mContext, "你没有授权安装App", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
 
+
+//                new AvoidOnResult((Activity) mContext).startForResult(intent, new AvoidOnResult.Callback() {
+//                    @Override
+//                    public void onActivityResult(int resultCode, Intent intent) {
+//                        //授权了就去安装
+//                        if (resultCode == Activity.RESULT_OK) {
+//                            if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
+//                                installProcess();
+//                            }
+//                        } else {
+//                            //如果是企业内部应用升级，肯定是要这个权限，其他情况不要太流氓，TOAST 提示
+//                            if (isForceGrantUnKnowSource) {
+//                                installProcess();
+//                            } else {
+//                                Toast.makeText(mContext, "你没有授权安装App", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    }
+//                });
+
+
             }
         } else {
             installApk();
-            hashMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
+            downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
         }
     }
 
