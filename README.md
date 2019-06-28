@@ -17,6 +17,8 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
   
   然后
   
+  targetSDK>= 26
+  
   ```
     //一般的弹出对话框提示升级
     //如果是企业内部应用升级，肯定是要这个权限; 其他情况不要太流氓，TOAST 提示
@@ -37,7 +39,12 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
     
          }
      }).start();
+     
   ```
+ 
+ 
+ 
+ .
  
 
 ![image.png](https://upload-images.jianshu.io/upload_images/2376786-88bc9e308207e1e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
