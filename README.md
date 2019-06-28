@@ -13,7 +13,7 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
 # 使用 
   
   首先 Gradle 引入
-  implementation 'anylife.downloadinstaller:downloadInstaller:1.0.9'
+  implementation 'anylife.downloadinstaller:downloadInstaller:1.1.1'
   
   然后
   

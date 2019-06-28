@@ -5,10 +5,7 @@ package com.zenglb.downloadinstaller;
  *
  */
 public interface DownloadProgressCallBack {
-//     void downloadStart();
-
      void downloadProgress(int progress);
      void downloadException(Exception e);
      void onInstallStart();
-
 }

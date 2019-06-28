@@ -37,11 +37,11 @@ dependencies {
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'pub.devrel:easypermissions:2.0.1'
 
-//    implementation project(':downloadInstaller')
+    implementation project(':downloadInstaller')
 
-    implementation 'anylife.downloadinstaller:downloadInstaller:1.0.9'
-
-
+//    implementation 'anylife.downloadinstaller:downloadInstaller:1.1.1'
 
 }
+
+
 

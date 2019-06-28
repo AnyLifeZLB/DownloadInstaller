@@ -1,7 +1,6 @@
 package com.zenglb.framework.updateinstaller;
 
 import android.Manifest;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +22,11 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
+    private String apkDownLoadUrlCOPY = "http://pro-app-qn.fir.im/a129a8163c341efa174432c0f9dcb9e81423a0d3.apk?attname=module_news-release.apk_1.1.apk&e=1561691950&token=LOvmia8oXF4xnLh0IdH05XMYpH6ENHNpARlmPc-T:NNyBMuVUdUSlHQKnWEVt1UN31IU=";
+
     //URL 下载有时间效益
-    private String apkDownLoadUrl = "http://img.4009515151.com//2019/06/26/15/7ace8dd995-comvankewyguide_3.8.6_0e3f3e28-39b0-543b-a847-6c70999d3b68.apk";
+    private String apkDownLoadUrl= "http://img.4009515151.com//2019/06/26/15/7ace8dd995-comvankewyguide_3.8.6_0e3f3e28-39b0-543b-a847-6c70999d3b68.apk";
+
     private String apkDownLoadUrl2 = "https://ali-fir-pro-binary.fir.im/ea7df71390403635b5f744d82d28c13fc865c325.apk?auth_key=1557455233-0-0-2b4c71ac353961eab7fa2a65ec641bb4";
 
     @Override
@@ -89,7 +91,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                     @Override
                     public void downloadProgress(int progress) {
                         runOnUiThread(() -> progressBar.setProgress(progress));
-                        //
+                        if (progress==100){
+                            downloadDialog.dismiss();
+                        }
                     }
 
                     @Override
@@ -120,6 +124,19 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         });
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**

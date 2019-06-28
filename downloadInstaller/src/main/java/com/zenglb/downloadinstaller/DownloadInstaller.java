@@ -19,6 +19,8 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.util.ArrayMap;
 import android.widget.Toast;
 
+import com.zdf.activitylauncher.ActivityLauncher;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,9 +33,6 @@ import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import com.zdf.activitylauncher.ActivityLauncher;
-
 
 /**
  * App 下载升级管理器.单线程稳定，多线程下载异常多！！！  30M 以内还是没有问题
@@ -72,12 +71,10 @@ public class DownloadInstaller {
     //事件监听器
     private DownloadProgressCallBack downloadProgressCallBack;
 
-    //保存下载状态信息，临时过度的方案。先只是记录下载状态，后期再断点续方案就要使用数据库了
+    //保存下载状态信息，临时过度的方案。
     public static ArrayMap<String, Integer> downLoadStatusMap = new ArrayMap<>();
 
-
     private String storagePrefix;
-
 
     /**
      * 不需要下载进度回调的
@@ -167,12 +164,11 @@ public class DownloadInstaller {
 
         Integer downloadStatus = downLoadStatusMap.get(downloadApkUrlMd5);
 
-        //若发现URL 对应的文件已经下载好了。 进度直接变成 100%
-        if (downloadStatus == null || downloadStatus == DownloadInstallStatus.UN_DOWNLOAD || downloadStatus == DownloadInstallStatus.DOWNLOAD_ERROR) {
+        if (downloadStatus == null || downloadStatus == UpdateStatus.UN_DOWNLOAD || downloadStatus == UpdateStatus.DOWNLOAD_ERROR) {
             initNotification();
             //如果没有正在下载&&没有下载好了还没有升级
             new Thread(mDownApkRunnable).start();
-        } else if (downloadStatus == DownloadInstallStatus.DOWNLOADING) {
+        } else if (downloadStatus == UpdateStatus.DOWNLOADING) {
             Toast.makeText(mContext, "正在下载App", Toast.LENGTH_SHORT).show();
         }
 
@@ -186,7 +182,7 @@ public class DownloadInstaller {
     private Runnable mDownApkRunnable = new Runnable() {
         @Override
         public void run() {
-            downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOADING);
+            downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.DOWNLOADING);
             try {
                 URL url = new URL(downloadApkUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -208,15 +204,21 @@ public class DownloadInstaller {
                     if (downloadProgressCallBack != null) {
                         downloadProgressCallBack.downloadProgress(progress);
                     }
-                    downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UNINSTALL);
-                    installProcess();
+
+                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
+                            installProcess();
+                        }
+                    });
+
                     return;
                 }
 
-
                 FileOutputStream fos = new FileOutputStream(apkFile);
                 int count = 0;
-                byte buf[] = new byte[2048];
+                byte[] buf = new byte[2048];
                 int byteCount;
 
                 InputStream is = conn.getInputStream();
@@ -237,7 +239,7 @@ public class DownloadInstaller {
                 ((Activity) mContext).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UNINSTALL);
+                        downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
                         installProcess();
                     }
                 });
@@ -247,7 +249,7 @@ public class DownloadInstaller {
                 is.close();
 
             } catch (Exception e) {
-                downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.DOWNLOAD_ERROR);
+                downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.DOWNLOAD_ERROR);
 
                 if (downloadProgressCallBack != null) {
                     downloadProgressCallBack.downloadException(e);
@@ -317,9 +319,9 @@ public class DownloadInstaller {
             final Integer downloadStatus = downLoadStatusMap.get(downloadApkUrlMd5); //unboxing
 
             if (canInstallPackage) {
-                if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
+                if (downloadStatus == UpdateStatus.UNINSTALL) {
                     installApk();
-                    downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
+                    downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UN_DOWNLOAD);
                 }
             } else {
                 Uri packageURI = Uri.parse("package:" + AppUtils.getPackageName(mContext));
@@ -332,7 +334,7 @@ public class DownloadInstaller {
                     public void onActivityResult(int resultCode, Intent data) {
                         //授权了就去安装
                         if (resultCode == Activity.RESULT_OK) {
-                            if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
+                            if (downloadStatus == UpdateStatus.UNINSTALL) {
                                 installProcess();
                             }
                         } else {
@@ -352,7 +354,7 @@ public class DownloadInstaller {
 //                    public void onActivityResult(int resultCode, Intent intent) {
 //                        //授权了就去安装
 //                        if (resultCode == Activity.RESULT_OK) {
-//                            if (downloadStatus == DownloadInstallStatus.UNINSTALL) {
+//                            if (downloadStatus == UpdateStatus.UNINSTALL) {
 //                                installProcess();
 //                            }
 //                        } else {
@@ -370,8 +372,9 @@ public class DownloadInstaller {
             }
         } else {
             installApk();
-            downLoadStatusMap.put(downloadApkUrlMd5, DownloadInstallStatus.UN_DOWNLOAD);
+            downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UN_DOWNLOAD);
         }
+
     }
 
 
