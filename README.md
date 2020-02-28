@@ -1,12 +1,15 @@
 # DownloadInstaller
 
+>App 应用内下载更新，希望小而美。更多需求请提Issues
+
 Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/AnyLifeZLB/DownloadInstaller)
 
 
 ## Android 应用内下载，储存，安装 ，未知来源等问题处理
+
 - 处理好了全局FileProvider,未知来源授权确认，通知栏等问题处理。
 - 已经下载的文件不会重复下载
-- 特别是Android 8 首次安装时候的未知来源问题处理，这里的处理方式很强硬，不授权安装未知来源就会一直跳转到授权页面。比较流氓，但很实用!
+- 特别是Android 8 首次安装时候的未知来源问题处理，这里的处理方式很强硬，不授权安装未知来源就会一直跳转到授权页面，企业级别的App应用内更新很实用
 - 当然这是可以配置是否需要强制授权安装未知来源 参考：new DownloadInstaller(mContext, downloadUrl, isForceGrantUnKnowSource
 
 
@@ -41,7 +44,6 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
      }).start();
      
   ```
- 
  
  
  .
