@@ -10,7 +10,7 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
 - 当然这是可以配置是否需要强制授权安装未知来源 参考：new DownloadInstaller(mContext, downloadUrl, isForceGrantUnKnowSource
 
 
-# 使用 
+# 使用 （1.1.2 版本后支持AndroidX 了）
   
   首先 Gradle 引入
   implementation 'anylife.downloadinstaller:downloadInstaller:1.1.1'
@@ -45,6 +45,7 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
  
  
  .
+ More,Contact me : anylife.zlb@gmail.com
  
 
 ![image.png](https://upload-images.jianshu.io/upload_images/2376786-88bc9e308207e1e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

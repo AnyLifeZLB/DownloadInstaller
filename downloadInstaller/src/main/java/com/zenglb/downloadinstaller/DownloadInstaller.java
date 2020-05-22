@@ -12,12 +12,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v4.util.ArrayMap;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.collection.ArrayMap;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 
 import com.zdf.activitylauncher.ActivityLauncher;
 
@@ -190,6 +191,7 @@ public class DownloadInstaller {
                 int length = conn.getContentLength();
 
                 File file = new File(storagePrefix);
+
                 if (!file.exists()) {
                     file.mkdir();
                 }
@@ -367,7 +369,6 @@ public class DownloadInstaller {
 //                        }
 //                    }
 //                });
-
 
             }
         } else {
