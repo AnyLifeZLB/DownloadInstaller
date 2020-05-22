@@ -2,19 +2,19 @@ package com.zenglb.framework.updateinstaller;
 
 import android.Manifest;
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.zenglb.downloadinstaller.DownloadInstaller;
 import com.zenglb.downloadinstaller.DownloadProgressCallBack;
-
 import java.util.List;
-
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**

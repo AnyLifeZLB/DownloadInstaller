@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DownloadInstaller.iml" filepath="$PROJECT_DIR$/DownloadInstaller.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/downloadInstaller/downloadInstaller.iml" filepath="$PROJECT_DIR$/downloadInstaller/downloadInstaller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DownloadInstaller.iml" filepath="$PROJECT_DIR$/DownloadInstaller.iml" group="DownloadInstaller" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="DownloadInstaller/app" />
+      <module fileurl="file://$PROJECT_DIR$/downloadInstaller/downloadInstaller.iml" filepath="$PROJECT_DIR$/downloadInstaller/downloadInstaller.iml" group="DownloadInstaller/downloadInstaller" />
     </modules>
   </component>
 </project>
