@@ -7,10 +7,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.2'
 
         //添加一下两个classpath。
-        // for jcenter
+        // for jCenter
         // version: https://bintray.com/jfrog/jfrog-jars/gradle-bintray-plugin
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         // version: https://bintray.com/dcendents/gradle-plugins/com.github.dcendents%3Aandroid-maven-gradle-plugin

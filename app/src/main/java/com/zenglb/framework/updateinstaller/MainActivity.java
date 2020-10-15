@@ -2,8 +2,12 @@ package com.zenglb.framework.updateinstaller;
 
 import android.Manifest;
 import android.graphics.Color;
-
+import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,18 +19,20 @@ import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.zenglb.downloadinstaller.DownloadInstaller;
 import com.zenglb.downloadinstaller.DownloadProgressCallBack;
 import java.util.List;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * app 内部升级
+ *
  */
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-    private String apkDownLoadUrlCOPY = "http://pro-app-qn.fir.im/a129a8163c341efa174432c0f9dcb9e81423a0d3.apk?attname=module_news-release.apk_1.1.apk&e=1561691950&token=LOvmia8oXF4xnLh0IdH05XMYpH6ENHNpARlmPc-T:NNyBMuVUdUSlHQKnWEVt1UN31IU=";
+    //URL 下载有时间效益.自己替换可以正常下载的地址
+    private String apkDownLoadUrl= "https://oss.pgyer.com/f4a1f31ce68f79ac29204921381a230d.apk?auth_key=1602728538-aea0420e71dc44cc88e3b1b48f3e30a1-0-73e912cdebe4b4e49fa35c232f69ff6b&response-content-disposition=attachment%3B+filename%3Dlebang-vanke-beta-4.1.3.apk";
 
-    //URL 下载有时间效益
-    private String apkDownLoadUrl= "http://img.4009515151.com//2019/06/26/15/7ace8dd995-comvankewyguide_3.8.6_0e3f3e28-39b0-543b-a847-6c70999d3b68.apk";
 
+    //这是一个无效的下载网址
     private String apkDownLoadUrl2 = "https://ali-fir-pro-binary.fir.im/ea7df71390403635b5f744d82d28c13fc865c325.apk?auth_key=1557455233-0-0-2b4c71ac353961eab7fa2a65ec641bb4";
 
     @Override
@@ -45,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         findViewById(R.id.update2).setOnClickListener(v -> showUpdateDialog("1.升级后App 会自动攒钱\n2.还可以做白日梦", false, apkDownLoadUrl2));
 
         methodRequiresPermission();
+
+
+        playSoundAndVibrator(false);
+
     }
 
 
@@ -133,8 +143,31 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
 
 
+    /**
+     * 不可以直接调用，需要debounce。（可能会导致根本就不播放了呢，zlb）
+     * <p>
+     * 推送来了以后播放自定义的声音和震动，小米的声音和震动因为比较短促，没有静默，只静默极光默认会触发的系统提示
+     *
+     * @param isMsg 消息传入true！任务的话传入false
+     */
+    public  void playSoundAndVibrator(boolean isMsg) {
+        Uri soundUri = null;
 
+        soundUri = Uri.parse("android.resource://"  + "com.zenglb.framework.updateinstaller/" + R.raw.msg);
 
+        if (soundUri != null) {
+            final Ringtone ringtone = RingtoneManager.getRingtone(MainActivity.this.getApplication(), soundUri);
+            if (ringtone != null) {
+                ringtone.setStreamType(AudioManager.STREAM_MUSIC);  //... ...
+                ringtone.play();
+            } else {
+                Log.e("PushHandler", "playSounds: failed to load ringtone from uri: " + soundUri);
+            }
+        } else {
+            Log.e("PushHandler", "playSounds: could not parse Uri: null");
+        }
+
+    }
 
 
 

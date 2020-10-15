@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.bbssyyuui:ActivityLauncher:1.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4bbd9d02a4b0a5a047b164fc290dd84b/jetified-ActivityLauncher-1.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4bbd9d02a4b0a5a047b164fc290dd84b/jetified-ActivityLauncher-1.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/91149fc402c41b8f91da2e27a71d9982/jetified-ActivityLauncher-1.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/91149fc402c41b8f91da2e27a71d9982/jetified-ActivityLauncher-1.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/91149fc402c41b8f91da2e27a71d9982/jetified-ActivityLauncher-1.0.2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

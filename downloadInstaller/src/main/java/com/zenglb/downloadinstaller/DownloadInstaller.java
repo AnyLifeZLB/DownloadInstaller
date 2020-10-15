@@ -77,6 +77,12 @@ public class DownloadInstaller {
 
     private String storagePrefix;
 
+
+
+    private boolean isDownloadOnly=false;
+
+
+
     /**
      * 不需要下载进度回调的
      *
@@ -114,6 +120,13 @@ public class DownloadInstaller {
         this.isForceGrantUnKnowSource = isForceGrantUnKnowSource;
         this.downloadProgressCallBack = callBack;
     }
+
+
+
+    private void setDownloadOnly(boolean isDownloadOnly){
+        this.isDownloadOnly=isDownloadOnly;
+    }
+
 
 
     /**
@@ -191,13 +204,11 @@ public class DownloadInstaller {
                 int length = conn.getContentLength();
 
                 File file = new File(storagePrefix);
-
                 if (!file.exists()) {
                     file.mkdir();
                 }
 
                 File apkFile = new File(storageApkPath);
-
                 if (apkFile.exists() && apkFile.length() == length) {
                     //已经下载过了，直接的progress ==100,然后去安装
                     progress=100;
@@ -207,13 +218,15 @@ public class DownloadInstaller {
                         downloadProgressCallBack.downloadProgress(progress);
                     }
 
-                    ((Activity) mContext).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
-                            installProcess();
-                        }
-                    });
+                    if(!isDownloadOnly){
+                        ((Activity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
+                                installProcess();
+                            }
+                        });
+                    }
 
                     return;
                 }
@@ -238,13 +251,15 @@ public class DownloadInstaller {
                     fos.write(buf, 0, byteCount);
                 }
 
-                ((Activity) mContext).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
-                        installProcess();
-                    }
-                });
+                if(!isDownloadOnly){
+                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
+                            installProcess();
+                        }
+                    });
+                }
 
                 fos.flush();
                 fos.close();
@@ -312,9 +327,8 @@ public class DownloadInstaller {
      * 安装过程处理
      */
     public void installProcess() {
-        if (progress < 100) {
-            return;
-        }
+        if (isDownloadOnly) return;
+        if (progress < 100) return;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             boolean canInstallPackage = mContext.getPackageManager().canRequestPackageInstalls();
