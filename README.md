@@ -16,7 +16,7 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
 # 使用 （1.1.2 版本后支持AndroidX 了）
   
   首先 Gradle 引入
-  implementation 'anylife.downloadinstaller:downloadInstaller:1.1.1'
+  implementation 'anylife.downloadinstaller:downloadInstaller:1.1.3'
   
   然后
   

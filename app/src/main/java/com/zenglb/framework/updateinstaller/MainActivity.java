@@ -29,10 +29,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     //URL 下载有时间效益.自己替换可以正常下载的地址
-    private String apkDownLoadUrl= "https://oss.pgyer.com/f4a1f31ce68f79ac29204921381a230d.apk?auth_key=1602728538-aea0420e71dc44cc88e3b1b48f3e30a1-0-73e912cdebe4b4e49fa35c232f69ff6b&response-content-disposition=attachment%3B+filename%3Dlebang-vanke-beta-4.1.3.apk";
+    private String apkDownLoadUrl= "https://dldir1.qq.com/weixin/android/weixin7020android1780_arm64.apk";
 
 
-    //这是一个无效的下载网址
+    //这是一个无效的下载网址，你可以改为你自己的下载地址
     private String apkDownLoadUrl2 = "https://ali-fir-pro-binary.fir.im/ea7df71390403635b5f744d82d28c13fc865c325.apk?auth_key=1557455233-0-0-2b4c71ac353961eab7fa2a65ec641bb4";
 
     @Override

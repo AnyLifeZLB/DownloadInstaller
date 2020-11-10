@@ -24,8 +24,9 @@ public class AppUtils {
             return context.getResources().getString(labelRes);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            return "AppUpdate";
         }
-        return null;
     }
 
     /**
