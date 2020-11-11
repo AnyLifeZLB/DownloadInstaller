@@ -52,9 +52,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
         methodRequiresPermission();
 
-
-        playSoundAndVibrator(false);
-
     }
 
 
@@ -127,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
         downloadDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(v -> {
             if (isForceUpdate) {
+                downloadDialog.dismiss();
                 MainActivity.this.finish();
             } else {
                 downloadDialog.dismiss();
@@ -134,42 +132,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         });
 
     }
-
-
-
-
-
-
-
-
-
-    /**
-     * 不可以直接调用，需要debounce。（可能会导致根本就不播放了呢，zlb）
-     * <p>
-     * 推送来了以后播放自定义的声音和震动，小米的声音和震动因为比较短促，没有静默，只静默极光默认会触发的系统提示
-     *
-     * @param isMsg 消息传入true！任务的话传入false
-     */
-    public  void playSoundAndVibrator(boolean isMsg) {
-        Uri soundUri = null;
-
-        soundUri = Uri.parse("android.resource://"  + "com.zenglb.framework.updateinstaller/" + R.raw.msg);
-
-        if (soundUri != null) {
-            final Ringtone ringtone = RingtoneManager.getRingtone(MainActivity.this.getApplication(), soundUri);
-            if (ringtone != null) {
-                ringtone.setStreamType(AudioManager.STREAM_MUSIC);  //... ...
-                ringtone.play();
-            } else {
-                Log.e("PushHandler", "playSounds: failed to load ringtone from uri: " + soundUri);
-            }
-        } else {
-            Log.e("PushHandler", "playSounds: could not parse Uri: null");
-        }
-
-    }
-
-
 
 
     /**
