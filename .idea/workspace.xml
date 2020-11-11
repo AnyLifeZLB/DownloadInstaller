@@ -16,30 +16,8 @@
     <list default="true" id="226a289a-9b75-492a-9c76-34330d92f6fb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bbssyyuui_ActivityLauncher_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bbssyyuui_ActivityLauncher_1_0_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__pub_devrel_easypermissions_2_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__pub_devrel_easypermissions_2_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DownloadInstaller.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DownloadInstaller.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/downloadInstaller.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/AppUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/AppUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +108,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="RKKDU17C03003526" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-11-11T02:23:28.458Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="ScreenshotViewer.SavePath" value="$PROJECT_DIR$" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
@@ -147,7 +127,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle./Users/zlb/code/DownloadInstaller/downloadInstaller [bintrayUpload]">
+  <component name="RunManager" selected="Android App.App">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -354,25 +334,25 @@
       <screen x="0" y="23" width="2048" height="1045" />
     </state>
     <state x="727" y="187" key="#xdebugger.evaluate/0.23.2048.1045@0.23.2048.1045" timestamp="1605004177815" />
-    <state width="1996" height="304" key="GridCell.Tab.0.bottom" timestamp="1605004529073">
+    <state width="1996" height="306" key="GridCell.Tab.0.bottom" timestamp="1605059363470">
       <screen x="0" y="23" width="2048" height="1045" />
     </state>
-    <state width="1996" height="304" key="GridCell.Tab.0.bottom/0.23.2048.1045@0.23.2048.1045" timestamp="1605004529073" />
+    <state width="1996" height="306" key="GridCell.Tab.0.bottom/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363470" />
     <state width="1996" height="350" key="GridCell.Tab.0.bottom/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="304" key="GridCell.Tab.0.center" timestamp="1605004529073">
+    <state width="1996" height="306" key="GridCell.Tab.0.center" timestamp="1605059363469">
       <screen x="0" y="23" width="2048" height="1045" />
     </state>
-    <state width="1996" height="304" key="GridCell.Tab.0.center/0.23.2048.1045@0.23.2048.1045" timestamp="1605004529073" />
+    <state width="1996" height="306" key="GridCell.Tab.0.center/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363469" />
     <state width="1996" height="350" key="GridCell.Tab.0.center/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="304" key="GridCell.Tab.0.left" timestamp="1605004529072">
+    <state width="1996" height="306" key="GridCell.Tab.0.left" timestamp="1605059363469">
       <screen x="0" y="23" width="2048" height="1045" />
     </state>
-    <state width="1996" height="304" key="GridCell.Tab.0.left/0.23.2048.1045@0.23.2048.1045" timestamp="1605004529072" />
+    <state width="1996" height="306" key="GridCell.Tab.0.left/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363469" />
     <state width="1996" height="350" key="GridCell.Tab.0.left/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438275" />
-    <state width="1996" height="304" key="GridCell.Tab.0.right" timestamp="1605004529073">
+    <state width="1996" height="306" key="GridCell.Tab.0.right" timestamp="1605059363469">
       <screen x="0" y="23" width="2048" height="1045" />
     </state>
-    <state width="1996" height="304" key="GridCell.Tab.0.right/0.23.2048.1045@0.23.2048.1045" timestamp="1605004529073" />
+    <state width="1996" height="306" key="GridCell.Tab.0.right/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363469" />
     <state width="1996" height="350" key="GridCell.Tab.0.right/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
     <state width="1996" height="265" key="GridCell.Tab.1.bottom" timestamp="1605004261459">
       <screen x="0" y="23" width="2048" height="1045" />
