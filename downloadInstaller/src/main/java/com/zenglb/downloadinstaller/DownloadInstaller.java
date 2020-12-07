@@ -77,10 +77,7 @@ public class DownloadInstaller {
 
     private String storagePrefix;
 
-
-
     private boolean isDownloadOnly=false;
-
 
 
     /**
@@ -201,6 +198,17 @@ public class DownloadInstaller {
                 URL url = new URL(downloadApkUrl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.connect();
+
+                //处理下载重定向问题，302 CODE
+                conn.setInstanceFollowRedirects(false);
+                if (conn.getResponseCode() == 302) {
+                    //如果会重定向，保存302重定向地址，以及Cookies,然后重新发送请求(模拟请求)
+                    String location = conn.getHeaderField("Location");
+                    conn.disconnect();
+                    downloadApkUrl = location;
+                    conn = (HttpURLConnection) new URL(downloadApkUrl).openConnection();
+                }
+
                 int length = conn.getContentLength();
 
                 File file = new File(storagePrefix);
@@ -227,7 +235,6 @@ public class DownloadInstaller {
                             }
                         });
                     }
-
                     return;
                 }
 
@@ -363,26 +370,6 @@ public class DownloadInstaller {
                         }
                     }
                 });
-
-
-//                new AvoidOnResult((Activity) mContext).startForResult(intent, new AvoidOnResult.Callback() {
-//                    @Override
-//                    public void onActivityResult(int resultCode, Intent intent) {
-//                        //授权了就去安装
-//                        if (resultCode == Activity.RESULT_OK) {
-//                            if (downloadStatus == UpdateStatus.UNINSTALL) {
-//                                installProcess();
-//                            }
-//                        } else {
-//                            //如果是企业内部应用升级，肯定是要这个权限，其他情况不要太流氓，TOAST 提示
-//                            if (isForceGrantUnKnowSource) {
-//                                installProcess();
-//                            } else {
-//                                Toast.makeText(mContext, "你没有授权安装App", Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    }
-//                });
 
             }
         } else {

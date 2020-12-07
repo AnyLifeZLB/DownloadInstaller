@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
 
     //这是一个无效的下载网址，你可以改为你自己的下载地址
-    private String apkDownLoadUrl2 = "https://ali-fir-pro-binary.fir.im/ea7df71390403635b5f744d82d28c13fc865c325.apk?auth_key=1557455233-0-0-2b4c71ac353961eab7fa2a65ec641bb4";
+    private String apkDownLoadUrl2 = "https://api.developer.xiaomi.com/autoupdate/updateself/download/fc6b8eba5351dedf2a79dab71c9bb299edcd1fb85AppStore_06af5546730ca4df0191ab263a2ae82b/com.engineer.map_1038.apk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
