@@ -14,18 +14,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="226a289a-9b75-492a-9c76-34330d92f6fb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bbssyyuui_ActivityLauncher_1_0_2_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__pub_devrel_easypermissions_2_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__pub_devrel_easypermissions_2_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__pub_devrel_easypermissions_2_0_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/downloadInstaller/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +44,7 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[RKKDU17C03003526]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@R58M82VMA4V]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -80,7 +87,7 @@
                 <item name="DownloadInstaller" type="f1a62948:ProjectNode" />
                 <item name="downloadInstaller" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="install" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -136,7 +143,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.App">
+  <component name="RunManager" selected="Gradle.DownloadInstaller:downloadInstaller [publish]">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -182,6 +189,7 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -235,6 +243,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DownloadInstaller:downloadInstaller [publish]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/downloadInstaller" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="publish" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="/Users/zlb/code/DownloadInstaller/app [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -286,14 +313,17 @@
       <item itemvalue="Android App.App" />
       <item itemvalue="Gradle./Users/zlb/code/DownloadInstaller/app [build]" />
       <item itemvalue="Gradle./Users/zlb/code/DownloadInstaller/downloadInstaller [bintrayUpload]" />
+      <item itemvalue="Gradle.DownloadInstaller:downloadInstaller [publish]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.DownloadInstaller:downloadInstaller [publish]" />
         <item itemvalue="Gradle./Users/zlb/code/DownloadInstaller/app [build]" />
         <item itemvalue="Gradle./Users/zlb/code/DownloadInstaller/downloadInstaller [bintrayUpload]" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration>$USER_HOME$/.subversion</configuration>
   </component>
@@ -339,63 +369,26 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="727" y="187" key="#xdebugger.evaluate" timestamp="1605004177815">
-      <screen x="0" y="23" width="2048" height="1045" />
-    </state>
-    <state x="727" y="187" key="#xdebugger.evaluate/0.23.2048.1045@0.23.2048.1045" timestamp="1605004177815" />
-    <state width="1996" height="260" key="GridCell.Tab.0.bottom" timestamp="1607333230046">
+    <state width="1996" height="301" key="GridCell.Tab.0.bottom" timestamp="1625125714822">
       <screen x="0" y="25" width="2048" height="1038" />
     </state>
-    <state width="1996" height="306" key="GridCell.Tab.0.bottom/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363470" />
-    <state width="1996" height="350" key="GridCell.Tab.0.bottom/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="260" key="GridCell.Tab.0.bottom/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230046" />
-    <state width="1996" height="260" key="GridCell.Tab.0.center" timestamp="1607333230046">
+    <state width="1996" height="301" key="GridCell.Tab.0.bottom/0.25.2048.1038@0.25.2048.1038" timestamp="1625125714822" />
+    <state width="1996" height="301" key="GridCell.Tab.0.center" timestamp="1625125714822">
       <screen x="0" y="25" width="2048" height="1038" />
     </state>
-    <state width="1996" height="306" key="GridCell.Tab.0.center/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363469" />
-    <state width="1996" height="350" key="GridCell.Tab.0.center/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="260" key="GridCell.Tab.0.center/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230046" />
-    <state width="1996" height="260" key="GridCell.Tab.0.left" timestamp="1607333230046">
+    <state width="1996" height="301" key="GridCell.Tab.0.center/0.25.2048.1038@0.25.2048.1038" timestamp="1625125714822" />
+    <state width="1996" height="301" key="GridCell.Tab.0.left" timestamp="1625125714821">
       <screen x="0" y="25" width="2048" height="1038" />
     </state>
-    <state width="1996" height="306" key="GridCell.Tab.0.left/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363469" />
-    <state width="1996" height="350" key="GridCell.Tab.0.left/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438275" />
-    <state width="1996" height="260" key="GridCell.Tab.0.left/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230046" />
-    <state width="1996" height="260" key="GridCell.Tab.0.right" timestamp="1607333230046">
+    <state width="1996" height="301" key="GridCell.Tab.0.left/0.25.2048.1038@0.25.2048.1038" timestamp="1625125714821" />
+    <state width="1996" height="301" key="GridCell.Tab.0.right" timestamp="1625125714822">
       <screen x="0" y="25" width="2048" height="1038" />
     </state>
-    <state width="1996" height="306" key="GridCell.Tab.0.right/0.23.2048.1045@0.23.2048.1045" timestamp="1605059363469" />
-    <state width="1996" height="350" key="GridCell.Tab.0.right/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="260" key="GridCell.Tab.0.right/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230046" />
-    <state width="1996" height="260" key="GridCell.Tab.1.bottom" timestamp="1607333230047">
+    <state width="1996" height="301" key="GridCell.Tab.0.right/0.25.2048.1038@0.25.2048.1038" timestamp="1625125714822" />
+    <state x="721" y="236" width="744" height="616" key="find.popup" timestamp="1625125111857">
       <screen x="0" y="25" width="2048" height="1038" />
     </state>
-    <state width="1996" height="265" key="GridCell.Tab.1.bottom/0.23.2048.1045@0.23.2048.1045" timestamp="1605004261459" />
-    <state width="1996" height="350" key="GridCell.Tab.1.bottom/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438277" />
-    <state width="1996" height="260" key="GridCell.Tab.1.bottom/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230047" />
-    <state width="1996" height="260" key="GridCell.Tab.1.center" timestamp="1607333230047">
-      <screen x="0" y="25" width="2048" height="1038" />
-    </state>
-    <state width="1996" height="265" key="GridCell.Tab.1.center/0.23.2048.1045@0.23.2048.1045" timestamp="1605004261459" />
-    <state width="1996" height="350" key="GridCell.Tab.1.center/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="260" key="GridCell.Tab.1.center/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230047" />
-    <state width="1996" height="260" key="GridCell.Tab.1.left" timestamp="1607333230047">
-      <screen x="0" y="25" width="2048" height="1038" />
-    </state>
-    <state width="1996" height="265" key="GridCell.Tab.1.left/0.23.2048.1045@0.23.2048.1045" timestamp="1605004261458" />
-    <state width="1996" height="350" key="GridCell.Tab.1.left/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438276" />
-    <state width="1996" height="260" key="GridCell.Tab.1.left/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230047" />
-    <state width="1996" height="260" key="GridCell.Tab.1.right" timestamp="1607333230047">
-      <screen x="0" y="25" width="2048" height="1038" />
-    </state>
-    <state width="1996" height="265" key="GridCell.Tab.1.right/0.23.2048.1045@0.23.2048.1045" timestamp="1605004261459" />
-    <state width="1996" height="350" key="GridCell.Tab.1.right/0.23.2048.1049@0.23.2048.1049" timestamp="1602728438277" />
-    <state width="1996" height="260" key="GridCell.Tab.1.right/0.25.2048.1038@0.25.2048.1038" timestamp="1607333230047" />
-    <state x="605" y="38" width="838" height="1026" key="search.everywhere.popup" timestamp="1606900642047">
-      <screen x="0" y="25" width="2048" height="1038" />
-    </state>
-    <state x="605" y="36" width="838" height="1032" key="search.everywhere.popup/0.23.2048.1045@0.23.2048.1045" timestamp="1605002443308" />
-    <state x="605" y="38" width="838" height="1026" key="search.everywhere.popup/0.25.2048.1038@0.25.2048.1038" timestamp="1606900642047" />
+    <state x="721" y="236" width="744" height="616" key="find.popup/0.25.2048.1038@0.25.2048.1038" timestamp="1625125111857" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -404,6 +397,31 @@
           <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java</url>
           <line>206</line>
           <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java</url>
+          <line>275</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java</url>
+          <line>175</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt</url>
+          <line>61</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt</url>
+          <line>69</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt</url>
+          <line>71</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
