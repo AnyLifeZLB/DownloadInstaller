@@ -20,7 +20,7 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
   Jcenter(): implementation 'anylife.downloadinstaller:downloadInstaller:1.1.3'   
   mavenCentral(): implementation 'io.github.anylifezlb:downloadInstaller:2.0.0'
 
-  
+  Jcenter 服务供应商已经停止服务了，建议尽快迁移mavenCentral
 
   然后 targetSDK>= 26
   
