@@ -17,7 +17,7 @@ Github :[https://github.com/AnyLifeZLB/DownloadInstaller](https://github.com/Any
 
   首先 Gradle 引入（1.1.1 版本是最后一个support 版本，后面是AndroidX了）
 
-  Jcenter(): implementation 'anylife.downloadinstaller:downloadInstaller:1.1.3'
+  Jcenter(): implementation 'anylife.downloadinstaller:downloadInstaller:1.1.3'   
   mavenCentral(): implementation 'io.github.anylifezlb:downloadInstaller:2.0.0'
 
   
