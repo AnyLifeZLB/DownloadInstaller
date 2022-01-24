@@ -15,7 +15,7 @@
 
     <string name="download_failure_storage_permission_deny">下载更新App失败，无储存权限</string>
     <string name="download_failure_net_deny">下载更新App失败，无法访问服务</string>
-    <string name="download_failure_file_not_found">下载更新App失败，要更新的App不存在</string>
+    <string name="download_failure_file_not_found">更新App失败，无法下载保存文件</string>
 
 
 </resources>

@@ -12,15 +12,20 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.collection.ArrayMap;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
 
-import com.zdf.activitylauncher.ActivityLauncher;
+
+import com.dylanc.activityresult.launcher.StartActivityLauncher;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +48,7 @@ import java.security.NoSuchAlgorithmException;
  * 5.新的进程处理？app 杀了也没有关系
  * <p>
  * 7.安装时候APK MD5 检查，断点续传，多线程下载
+ * 8.存储分区适配
  * <p>
  * https://github.com/miomin/Multiple-ChannelResumeDownloader
  * https://github.com/yaowen369/DownloadHelper
@@ -78,6 +84,7 @@ public class DownloadInstaller {
     private String storagePrefix;
 
     private boolean isDownloadOnly=false;
+    private StartActivityLauncher startActivityLauncher;
 
 
     /**
@@ -86,8 +93,8 @@ public class DownloadInstaller {
      * @param context        上下文
      * @param downloadApkUrl apk 下载地址
      */
-    public DownloadInstaller(Context context, String downloadApkUrl) {
-        this(context, downloadApkUrl, false, null);
+    public DownloadInstaller(Context context, String downloadApkUrl,StartActivityLauncher startActivityLauncher) {
+        this(context, downloadApkUrl, startActivityLauncher,false, null);
     }
 
 
@@ -98,8 +105,8 @@ public class DownloadInstaller {
      * @param downloadApkUrl apk下载地址
      * @param callBack       进度状态回调
      */
-    public DownloadInstaller(Context context, String downloadApkUrl, DownloadProgressCallBack callBack) {
-        this(context, downloadApkUrl, false, callBack);
+    public DownloadInstaller(Context context, String downloadApkUrl,StartActivityLauncher startActivityLauncher, DownloadProgressCallBack callBack) {
+        this(context, downloadApkUrl, startActivityLauncher,false, callBack);
     }
 
 
@@ -111,19 +118,17 @@ public class DownloadInstaller {
      * @param isForceGrantUnKnowSource 是否是强制的要授权未知来源
      * @param callBack                 回调
      */
-    public DownloadInstaller(Context context, String downloadApkUrl, boolean isForceGrantUnKnowSource, DownloadProgressCallBack callBack) {
+    public DownloadInstaller(Context context, String downloadApkUrl, StartActivityLauncher startActivityLauncher, boolean isForceGrantUnKnowSource, DownloadProgressCallBack callBack) {
         this.mContext = context;
         this.downloadApkUrl = downloadApkUrl;
+        this.startActivityLauncher=startActivityLauncher;
         this.isForceGrantUnKnowSource = isForceGrantUnKnowSource;
         this.downloadProgressCallBack = callBack;
     }
 
-
-
     private void setDownloadOnly(boolean isDownloadOnly){
         this.isDownloadOnly=isDownloadOnly;
     }
-
 
 
     /**
@@ -169,8 +174,9 @@ public class DownloadInstaller {
         //https://developer.android.com/studio/build/application-id?hl=zh-cn
         authority = applicationID + ".fileProvider";
 
-        //前缀要统一 一下 + AppUtils.getAppName(mContext)+"/Download/"
-        storagePrefix = Environment.getExternalStorageDirectory().getPath() + "/";
+        //todo 路径要支持自定义，适配分区储存，卸载后App缓存也要删除
+//        storagePrefix = Environment.getExternalStorageDirectory().getPath() + "/";
+        storagePrefix = mContext.getFilesDir().getPath() + "/update/";
         storageApkPath = storagePrefix + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
 
         Integer downloadStatus = downLoadStatusMap.get(downloadApkUrlMd5);
@@ -181,6 +187,17 @@ public class DownloadInstaller {
             new Thread(mDownApkRunnable).start();
         } else if (downloadStatus == UpdateStatus.DOWNLOADING) {
             Toast.makeText(mContext, "正在下载App", Toast.LENGTH_SHORT).show();
+        }else if (downloadStatus==UpdateStatus.UNINSTALL){
+            downloadProgressCallBack.downloadProgress(100);
+            if(!isDownloadOnly){
+                ((Activity) mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UNINSTALL);
+                        installProcess();
+                    }
+                });
+            }
         }
 
     }
@@ -219,12 +236,16 @@ public class DownloadInstaller {
                 File apkFile = new File(storageApkPath);
                 if (apkFile.exists() && apkFile.length() == length) {
                     //已经下载过了，直接的progress ==100,然后去安装
+                    //data/user/0/com.zenglb.framework.updateinstaller/files/AppUpdate15975F54AB360A6E.apk
                     progress=100;
 
                     updateNotify(progress);
                     if (downloadProgressCallBack != null) {
                         downloadProgressCallBack.downloadProgress(progress);
                     }
+
+
+                    conn.disconnect();
 
                     if(!isDownloadOnly){
                         ((Activity) mContext).runOnUiThread(new Runnable() {
@@ -237,6 +258,7 @@ public class DownloadInstaller {
                     }
                     return;
                 }
+
 
                 FileOutputStream fos = new FileOutputStream(apkFile);
                 int count = 0;
@@ -332,10 +354,13 @@ public class DownloadInstaller {
 
     /**
      * 安装过程处理
+     *
+     * 取消安装未知来源后不可以用，Activity For Result 不可用
+     *
      */
     public void installProcess() {
         if (isDownloadOnly) return;
-        if (progress < 100) return;
+//        if (progress < 100) return;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             boolean canInstallPackage = mContext.getPackageManager().canRequestPackageInstalls();
@@ -349,14 +374,13 @@ public class DownloadInstaller {
             } else {
                 Uri packageURI = Uri.parse("package:" + AppUtils.getPackageName(mContext));
                 Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
-
-                //检查是否可以安装未知来源的应用，没有权限就一直去尝试，我感觉这样子是很流氓的...
-                //在这里拦截OnActivityResult,不要代码割裂
-                ActivityLauncher.init((Activity) mContext).startActivityForResult(intent, new ActivityLauncher.Callback() {
+                
+                //奇怪，这里竟然拿不到返回的值，生气😠
+                startActivityLauncher.launch(intent, new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onActivityResult(int resultCode, Intent data) {
-                        //授权了就去安装
-                        if (resultCode == Activity.RESULT_OK) {
+                    public void onActivityResult(ActivityResult result) {
+                        Log.e("GGGGGGGG","--111  ------------------------");
+                        if(result.getResultCode()==Activity.RESULT_OK){
                             if (downloadStatus == UpdateStatus.UNINSTALL) {
                                 installProcess();
                             }
@@ -376,7 +400,6 @@ public class DownloadInstaller {
             installApk();
             downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.UN_DOWNLOAD);
         }
-
     }
 
 

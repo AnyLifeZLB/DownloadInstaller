@@ -14,17 +14,18 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".MainActivity"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".UpdateAppActivity"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
 
     </application>

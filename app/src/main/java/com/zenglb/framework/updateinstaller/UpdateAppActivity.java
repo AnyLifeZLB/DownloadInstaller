@@ -1,8 +1,6 @@
 package com.zenglb.framework.updateinstaller;
 
-
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.dylanc.activityresult.launcher.StartActivityLauncher;
 import com.zenglb.downloadinstaller.DownloadInstaller;
 import com.zenglb.downloadinstaller.DownloadProgressCallBack;
 
@@ -33,8 +32,10 @@ public class UpdateAppActivity extends AppCompatActivity {
         );
 
         checkVersionResult=getIntent().getParcelableExtra("update");
+        final StartActivityLauncher startActivityLauncher = new StartActivityLauncher(UpdateAppActivity.this);
 
-        mDialog = new UpdateDialog(this);
+
+        mDialog = new UpdateDialog(this,startActivityLauncher);
         mDialog.show();
     }
 
@@ -47,9 +48,12 @@ public class UpdateAppActivity extends AppCompatActivity {
         Context mContext;
         TextView mUnConfirm, mContent, mBtnConfirm,mVersion,mTitle;
         NumberProgressBar progressBar;
-        public UpdateDialog(Context context) {
+        StartActivityLauncher startActivityLauncher;
+
+        public UpdateDialog(Context context,StartActivityLauncher startActivityLauncher) {
             super(context);
             mContext = context;
+            this.startActivityLauncher=startActivityLauncher;
         }
 
         @Override
@@ -66,7 +70,6 @@ public class UpdateAppActivity extends AppCompatActivity {
             progressBar= findViewById(R.id.tips_progress);
             mBtnConfirm = findViewById(R.id.btn_confirm);
 
-
             // mContent.setText(checkVersionResult.getDescription());
             mVersion.setText(checkVersionResult.getVersionName());
 
@@ -76,11 +79,10 @@ public class UpdateAppActivity extends AppCompatActivity {
             }
 
             mBtnConfirm.setOnClickListener(v -> {
-                //变成灰色
                 mBtnConfirm.setBackgroundResource(R.drawable.shape_btn_grey_bg);
                 if (checkVersionResult.getUpdateType()==1) {
                     progressBar.setVisibility(View.VISIBLE);
-                    new DownloadInstaller(UpdateAppActivity.this, checkVersionResult.getPackageUrl(), true,
+                    new DownloadInstaller(UpdateAppActivity.this, checkVersionResult.getPackageUrl(),startActivityLauncher, true,
                             new DownloadProgressCallBack() {
                                 @Override
                                 public void downloadProgress(int progress) {
@@ -102,7 +104,7 @@ public class UpdateAppActivity extends AppCompatActivity {
                             }).start();
 
                 } else {
-                    new DownloadInstaller(UpdateAppActivity.this, checkVersionResult.getPackageUrl()).start();
+                    new DownloadInstaller(UpdateAppActivity.this, checkVersionResult.getPackageUrl(),startActivityLauncher).start();
                     Toast.makeText(UpdateAppActivity.this,"后台下载升级中",Toast.LENGTH_LONG).show();
                     UpdateAppActivity.this.finish();
                 }
@@ -110,12 +112,15 @@ public class UpdateAppActivity extends AppCompatActivity {
 
             mUnConfirm.setOnClickListener(v -> {
                 if (checkVersionResult.getUpdateType()==1) {
-                    Intent mHomeIntent = new Intent(Intent.ACTION_MAIN);
-                    mHomeIntent.addCategory(Intent.CATEGORY_HOME);
-                    mHomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                            | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                    startActivity(mHomeIntent);
+//                    Intent mHomeIntent = new Intent(Intent.ACTION_MAIN);
+//                    mHomeIntent.addCategory(Intent.CATEGORY_HOME);
+//                    mHomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+//                            | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+//                    startActivity(mHomeIntent);
+                    dismiss();
+                    System.exit(0);
                 } else {
+                    dismiss();
                     UpdateAppActivity.this.finish();
                 }
             });

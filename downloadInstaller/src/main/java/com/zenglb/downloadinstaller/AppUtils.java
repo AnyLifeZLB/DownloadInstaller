@@ -55,8 +55,6 @@ public class AppUtils {
      * @return 当前应用的版本名称
      */
     public static synchronized String getPackageName(Context context) {
-
-        //==get
         try {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(

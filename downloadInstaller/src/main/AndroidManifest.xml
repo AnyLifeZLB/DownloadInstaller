@@ -12,6 +12,8 @@
         android:allowBackup="true"
         android:supportsRtl="true">
 
+        <activity android:name=".SecondActivity"/>
+
         <provider
             android:name=".DownloadInstallerProvider"
             android:authorities="${applicationId}.fileProvider"
