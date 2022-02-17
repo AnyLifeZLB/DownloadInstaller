@@ -118,7 +118,8 @@ public class DownloadInstaller {
      * @param isForceGrantUnKnowSource 是否是强制的要授权未知来源
      * @param callBack                 回调
      */
-    public DownloadInstaller(Context context, String downloadApkUrl, StartActivityLauncher startActivityLauncher, boolean isForceGrantUnKnowSource, DownloadProgressCallBack callBack) {
+    public DownloadInstaller(Context context, String downloadApkUrl, StartActivityLauncher startActivityLauncher,
+                             boolean isForceGrantUnKnowSource, DownloadProgressCallBack callBack) {
         this.mContext = context;
         this.downloadApkUrl = downloadApkUrl;
         this.startActivityLauncher=startActivityLauncher;
@@ -188,7 +189,9 @@ public class DownloadInstaller {
         } else if (downloadStatus == UpdateStatus.DOWNLOADING) {
             Toast.makeText(mContext, "正在下载App", Toast.LENGTH_SHORT).show();
         }else if (downloadStatus==UpdateStatus.UNINSTALL){
-            downloadProgressCallBack.downloadProgress(100);
+            if(null!=downloadProgressCallBack){
+                downloadProgressCallBack.downloadProgress(100);
+            }
             if(!isDownloadOnly){
                 ((Activity) mContext).runOnUiThread(new Runnable() {
                     @Override
@@ -244,7 +247,6 @@ public class DownloadInstaller {
                         downloadProgressCallBack.downloadProgress(progress);
                     }
 
-
                     conn.disconnect();
 
                     if(!isDownloadOnly){
@@ -293,7 +295,6 @@ public class DownloadInstaller {
                 fos.flush();
                 fos.close();
                 is.close();
-
             } catch (Exception e) {
                 downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.DOWNLOAD_ERROR);
 
@@ -320,6 +321,7 @@ public class DownloadInstaller {
                 } else {
                     notifyError(getStringFrom(R.string.apk_update_download_failed));
                     toastError(R.string.apk_update_download_failed);
+                    Log.i("89898989",e.toString());
                 }
 
             } finally {
@@ -374,23 +376,19 @@ public class DownloadInstaller {
             } else {
                 Uri packageURI = Uri.parse("package:" + AppUtils.getPackageName(mContext));
                 Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
-                
-                //奇怪，这里竟然拿不到返回的值，生气😠
-                startActivityLauncher.launch(intent, new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        Log.e("GGGGGGGG","--111  ------------------------");
-                        if(result.getResultCode()==Activity.RESULT_OK){
-                            if (downloadStatus == UpdateStatus.UNINSTALL) {
-                                installProcess();
-                            }
+
+                //这里有些手机拿不到返回的值，每家厂商的策略不同....
+                startActivityLauncher.launch(intent, result -> {
+                    if(result.getResultCode()==Activity.RESULT_OK){
+                        if (downloadStatus == UpdateStatus.UNINSTALL) {
+                            installProcess();
+                        }
+                    } else {
+                        //如果是企业内部应用升级，肯定是要这个权限，其他情况不要太流氓，TOAST 提示
+                        if (isForceGrantUnKnowSource) {
+                            installProcess();
                         } else {
-                            //如果是企业内部应用升级，肯定是要这个权限，其他情况不要太流氓，TOAST 提示
-                            if (isForceGrantUnKnowSource) {
-                                installProcess();
-                            } else {
-                                Toast.makeText(mContext, "你没有授权安装App", Toast.LENGTH_LONG).show();
-                            }
+                            Toast.makeText(mContext, "你没有授权安装App", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -492,10 +490,9 @@ public class DownloadInstaller {
                 intent.setDataAndType(Uri.parse("file://" + new File(storageApkPath).toString()), intentType);
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            notification.contentIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
+            notification.contentIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         }
         notificationManager.notify(downloadApkNotifyId, notification);
     }
-
 
 }

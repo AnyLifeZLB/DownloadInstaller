@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 
 /**
+ * 根据自己的业务替换
  *
  */
 public class CheckVersionResult implements Parcelable {
