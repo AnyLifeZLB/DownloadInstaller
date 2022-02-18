@@ -15,21 +15,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="226a289a-9b75-492a-9c76-34330d92f6fb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.bash_profile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/UpdateAppDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/CheckVersionResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/CheckVersionResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/UpdateAppActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadProgressCallBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadProgressCallBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/SecondActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +31,6 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R58M82VMA4V]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -61,24 +51,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="DownloadInstaller" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="DownloadInstaller" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="DownloadInstaller" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="DownloadInstaller" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -151,7 +123,7 @@
       <recent name="com.zenglb.framework.updateinstaller" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.App">
+  <component name="RunManager" selected="Gradle.DownloadInstaller:downloadInstaller [publish]">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -340,8 +312,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.DownloadInstaller:app [assemble]" />
         <item itemvalue="Gradle.DownloadInstaller:downloadInstaller [publish]" />
+        <item itemvalue="Gradle.DownloadInstaller:app [assemble]" />
         <item itemvalue="Gradle./Users/zlb/code/DownloadInstaller/app [build]" />
         <item itemvalue="Gradle./Users/zlb/code/DownloadInstaller/downloadInstaller [bintrayUpload]" />
       </list>
