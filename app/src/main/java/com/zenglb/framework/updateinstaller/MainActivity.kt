@@ -1,7 +1,9 @@
 package com.zenglb.framework.updateinstaller
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -11,11 +13,14 @@ import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.zenglb.downloadinstaller.AppUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
+import pub.devrel.easypermissions.EasyPermissions
+
+
 /**
  * app 内部升级Demo
  *
  */
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     //URL 下载有时间效益.自己替换可以正常下载的地址
     private val apkDownLoadUrl =
         "https://lebang-img.4009515151.com/2022/01/12/a6a58983-2059-4e6d-82a0-6a8c763a8806.apk"
@@ -52,6 +57,51 @@ class MainActivity : AppCompatActivity(){
             UpdateAppDialog(this,data,startActivityLauncher).show()
         }
 
+
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            methodRequiresPermission()
+        } else {
+            //  低于24即为7.0以下执行内容
+        }
+
+    }
+
+
+
+    /**
+     * 请求权限,创建目录的权限
+     */
+    private fun methodRequiresPermission() {
+        val perms = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (EasyPermissions.hasPermissions(this, *perms)) {
+            // Already have permission, do the thing
+            // ...
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this@MainActivity, "App 升级需要储存权限", 10086, *perms)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, list: List<String>) {
+        // Some permissions have been granted
+        // ...
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, list: List<String>) {
+        // Some permissions have been denied
+        // ...
     }
 
 }

@@ -46,7 +46,7 @@ dependencies {
 
 //    implementation 'anylife.downloadinstaller:downloadInstaller:1.2.1'
 
-//    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
 }
 

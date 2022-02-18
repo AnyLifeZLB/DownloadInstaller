@@ -176,10 +176,14 @@ public class DownloadInstaller {
         authority = applicationID + ".fileProvider";
 
         //todo 路径要支持自定义，适配分区储存，卸载后App缓存也要删除
-//        storagePrefix = Environment.getExternalStorageDirectory().getPath() + "/";
-        storagePrefix = mContext.getFilesDir().getPath() + "/update/";
-        storageApkPath = storagePrefix + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            storagePrefix = Environment.getExternalStorageDirectory().getPath() + "/update/";
+        } else {
+            storagePrefix = mContext.getFilesDir().getPath() + "/update/";
+        }
+
+        storageApkPath = storagePrefix + AppUtils.getAppName(mContext) + downloadApkUrlMd5 + ".apk";
         Integer downloadStatus = downLoadStatusMap.get(downloadApkUrlMd5);
 
         if (downloadStatus == null || downloadStatus == UpdateStatus.UN_DOWNLOAD || downloadStatus == UpdateStatus.DOWNLOAD_ERROR) {
@@ -239,9 +243,7 @@ public class DownloadInstaller {
                 File apkFile = new File(storageApkPath);
                 if (apkFile.exists() && apkFile.length() == length) {
                     //已经下载过了，直接的progress ==100,然后去安装
-                    //data/user/0/com.zenglb.framework.updateinstaller/files/AppUpdate15975F54AB360A6E.apk
                     progress=100;
-
                     updateNotify(progress);
                     if (downloadProgressCallBack != null) {
                         downloadProgressCallBack.downloadProgress(progress);
@@ -297,11 +299,9 @@ public class DownloadInstaller {
                 is.close();
             } catch (Exception e) {
                 downLoadStatusMap.put(downloadApkUrlMd5, UpdateStatus.DOWNLOAD_ERROR);
-
                 if (downloadProgressCallBack != null) {
                     downloadProgressCallBack.downloadException(e);
                 }
-
                 //后面有时间再完善异常的处理
                 if (e instanceof FileNotFoundException) {
                     notifyError(getStringFrom(R.string.download_failure_file_not_found));
