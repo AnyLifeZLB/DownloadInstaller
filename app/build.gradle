@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 31
     defaultConfig {
-        applicationId "com.zenglb.framework.updateinstaller"
+        applicationId "com.anylife.framework.updateinstaller"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
@@ -42,9 +42,9 @@ dependencies {
 
     implementation 'com.github.DylanCaiCoding:ActivityResultLauncher:1.1.2'
 
-    implementation project(':downloadInstaller')
+//    implementation project(':downloadInstaller')
 
-//    implementation 'anylife.downloadinstaller:downloadInstaller:1.2.1'
+    implementation 'io.github.anylifezlb:DownloadInstaller:2.2.2'
 
     implementation 'pub.devrel:easypermissions:3.0.0'
 

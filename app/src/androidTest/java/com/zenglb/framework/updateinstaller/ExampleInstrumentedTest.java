@@ -1,4 +1,4 @@
-package com.zenglb.framework.updateinstaller;
+package com.anylife.framework.updateinstaller;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.zenglb.framework.updateinstaller", appContext.getPackageName());
+        assertEquals("com.anylife.framework.updateinstaller", appContext.getPackageName());
     }
 }

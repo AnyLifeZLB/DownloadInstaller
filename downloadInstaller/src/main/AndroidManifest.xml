@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.zenglb.downloadinstaller">
+    package="com.anylife.downloadinstaller">
 
     <!-- SD卡写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,7 +12,6 @@
         android:allowBackup="true"
         android:supportsRtl="true">
 
-        <activity android:name=".SecondActivity"/>
 
         <provider
             android:name=".DownloadInstallerProvider"

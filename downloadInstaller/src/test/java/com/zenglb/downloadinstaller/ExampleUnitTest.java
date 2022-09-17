@@ -1,4 +1,4 @@
-package com.zenglb.downloadinstaller;
+package com.anylife.downloadinstaller;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.zenglb.framework.updateinstaller;
+package com.anylife.framework.updateinstaller;
 
 import org.junit.Test;
 

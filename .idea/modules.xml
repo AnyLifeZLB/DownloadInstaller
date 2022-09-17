@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DownloadInstaller.iml" filepath="$PROJECT_DIR$/DownloadInstaller.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DownloadInstaller.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.iml" filepath="$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.main.iml" filepath="$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/downloadInstaller/DownloadInstaller.downloadInstaller.unitTest.iml" />
     </modules>
   </component>
 </project>

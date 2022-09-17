@@ -1,4 +1,4 @@
-package com.zenglb.downloadinstaller;
+package com.anylife.downloadinstaller;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.zenglb.downloadinstaller", appContext.getPackageName());
+        assertEquals("com.anylife.downloadinstaller", appContext.getPackageName());
     }
 }
