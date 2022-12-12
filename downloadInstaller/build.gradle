@@ -5,12 +5,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "com.vanniktech.maven.publish"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
-
+        targetSdkVersion 33
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -21,6 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.anylife.downloadinstaller'
 
 }
 
@@ -38,7 +38,6 @@ dependencies {
 
     implementation "androidx.core:core-ktx:1.7.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
 }
 
 

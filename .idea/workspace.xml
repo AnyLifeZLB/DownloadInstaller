@@ -15,30 +15,18 @@
   <component name="ChangeListManager">
     <list default="true" id="226a289a-9b75-492a-9c76-34330d92f6fb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DownloadInstaller.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DownloadInstaller.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/zenglb/framework/updateinstaller/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/zenglb/framework/updateinstaller/ExampleInstrumentedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/CheckVersionResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/MainActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/zenglb/framework/updateinstaller/UpdateAppDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/update_app_alert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/update_app_alert.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/zenglb/framework/updateinstaller/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/zenglb/framework/updateinstaller/ExampleUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/androidTest/java/com/zenglb/downloadinstaller/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/androidTest/java/com/zenglb/downloadinstaller/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/downloadInstaller/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/AppUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstallerProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadProgressCallBack.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/UpdateStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloadInstaller/src/test/java/com/zenglb/downloadinstaller/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/downloadInstaller/src/test/java/com/zenglb/downloadinstaller/ExampleUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +37,7 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[R58M82VMA4V]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[T7G5T15A28000712]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -102,6 +90,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="1cG1tFFRUESHyYqV9TMlpwHcqQN" />
   <component name="ProjectViewState">
@@ -168,6 +159,7 @@
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
       <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -205,6 +197,7 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
         <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -223,6 +216,7 @@
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
       <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -260,6 +254,7 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
         <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+        <option name="PROFILING_MODE" value="NOT_SET" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -404,6 +399,14 @@
       <option name="presentableId" value="Default" />
       <updated>1557125065994</updated>
     </task>
+    <task id="LOCAL-00001" summary="update README.md">
+      <created>1663398810316</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663398810316</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -435,10 +438,10 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="update README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="update README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -472,6 +475,21 @@
           <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/zenglb/downloadinstaller/DownloadInstaller.java</url>
           <line>305</line>
           <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/anylife/downloadinstaller/DownloadInstaller.java</url>
+          <line>182</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/anylife/downloadinstaller/DownloadInstaller.java</url>
+          <line>176</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/downloadInstaller/src/main/java/com/anylife/downloadinstaller/DownloadInstaller.java</url>
+          <line>178</line>
+          <option name="timeStamp" value="108" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
