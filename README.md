@@ -16,7 +16,7 @@
 
   implementation 'io.github.anylifezlb:DownloadInstaller:2.3.0'
 
-  1.1.1 版本是最后一个support 版本，后面是AndroidX了
+  1.1.1 版本是最后一个support 版本，后面是AndroidX了   
   2.3.0 开始已经适配存储分区了和更改包名路径，请大家验证是否符合自己的项目需求后进行更新
  
   ```
